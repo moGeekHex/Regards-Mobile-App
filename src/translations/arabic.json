@@ -1,0 +1,32 @@
+{
+     "translation" : {
+          "homeTitlePopularWeek" :  "أبرز الهدايا",
+          "homegift" : "هدية لـ",
+          "homeTitlePupularEvents" : "أبرز المناسبات",
+          "shareTitlePopularEvent" : "هدية حسب المناسبة",
+          "shareTitleAllEvent" : "جميع المناسبات",
+          "searchTitlePopularSeller" : "أبرز شركائنا",
+          "searchTitleAllSeller" : "جميع شركائنا",
+          "searchTitleAllCategories" : "جميع التصنيفات",
+          "searchTitlePopularCategories" : "أبرز التصنيفات",
+          "productOverview" : "وصف الهدية",
+          "productAdditionalDetails" : "تفاصيل اضافية",
+          "productQTY" : "الكمية",
+          "productPurchaseGift" : "شراء الهدية",
+          "productQuantity" : "العدد",
+          "outOfStock" : "غيــر متـوفر حـــالياً",
+          "cardModelContainueShopping" : "يجب عليك التسجيل",
+          "cardModelContinueCheckout" : "واصل عملية الشراء",
+          "cardModelContinueLogin" : "تسجيل الدخول",
+          "phoneNumber" : "رقم الجوال",
+          "enterCode" : "ادخل الرمز",
+          "TermsAndConditions" : "الشروط و الأحكام",
+          "EditProfile" : "تعديل الملف الشخصي",
+          "WalletPrivate" : "رصيد المحفظة",
+          "WalletCorprite" : "رصيد محفظة الشركات",
+          "itemOrder" : "الطلبات السابقة",
+          "DeleteAccount" : "حذف الحساب",
+          "SAVE":"حفظ",
+          "emailAddress" : "Email Address"
+     }
+}

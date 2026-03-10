@@ -1,0 +1,6 @@
+framework module react_native_adjust {
+  umbrella header "react-native-adjust-umbrella.h"
+
+  export *
+  module * { export * }
+}

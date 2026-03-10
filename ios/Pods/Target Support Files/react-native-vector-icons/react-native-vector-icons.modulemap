@@ -1,0 +1,6 @@
+framework module react_native_vector_icons {
+  umbrella header "react-native-vector-icons-umbrella.h"
+
+  export *
+  module * { export * }
+}

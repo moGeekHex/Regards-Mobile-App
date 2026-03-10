@@ -1,0 +1,17 @@
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/2.7.0/gems/nkf-0.2.0/ext/nkf
+/Users/mo/.rvm/rubies/ruby-2.7.5/bin/ruby -I /Users/mo/.rvm/rubies/ruby-2.7.5/lib/ruby/2.7.0 -r ./siteconf20250218-34198-19r2wvm.rb extconf.rb
+creating Makefile
+
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/2.7.0/gems/nkf-0.2.0/ext/nkf
+make "DESTDIR=" clean
+
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/2.7.0/gems/nkf-0.2.0/ext/nkf
+make "DESTDIR="
+compiling nkf.c
+linking shared-object nkf.bundle
+ld: warning: -multiply_defined is obsolete
+ld: warning: ignoring file '/Users/mo/.rvm/rubies/ruby-2.7.5/lib/libruby.2.7.dylib': found architecture 'arm64', required architecture 'x86_64'
+
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/2.7.0/gems/nkf-0.2.0/ext/nkf
+make "DESTDIR=" install
+/opt/homebrew/opt/coreutils/bin/ginstall -c -m 0755 nkf.bundle ./.gem.20250218-34198-dg2jwl

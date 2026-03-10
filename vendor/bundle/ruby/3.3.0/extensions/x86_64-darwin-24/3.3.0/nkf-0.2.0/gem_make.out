@@ -1,0 +1,18 @@
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/3.3.0/gems/nkf-0.2.0/ext/nkf
+/Users/mo/.rbenv/versions/3.3.3/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/3.3.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20250219-22979-nd66sj sitelibdir\=./.gem.20250219-22979-nd66sj clean
+
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/3.3.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20250219-22979-nd66sj sitelibdir\=./.gem.20250219-22979-nd66sj
+compiling nkf.c
+linking shared-object nkf.bundle
+
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/3.3.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20250219-22979-nd66sj sitelibdir\=./.gem.20250219-22979-nd66sj install
+/usr/local/bin/ginstall -c -m 0755 nkf.bundle ./.gem.20250219-22979-nd66sj
+
+current directory: /Users/mo/reactnative/Regards/vendor/bundle/ruby/3.3.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20250219-22979-nd66sj sitelibdir\=./.gem.20250219-22979-nd66sj clean

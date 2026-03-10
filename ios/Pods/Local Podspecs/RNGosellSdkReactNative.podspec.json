@@ -1,0 +1,35 @@
+{
+  "name": "RNGosellSdkReactNative",
+  "version": "1.0.8",
+  "summary": "RNGosellSdkReactNative",
+  "description": "RNGosellSdkReactNative",
+  "homepage": "https://github.com/Tap-Payments/gosellSDK-ReactNative",
+  "license": "MIT",
+  "authors": {
+    "author": "author@domain.cn"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "source": {
+    "git": "https://github.com/Tap-Payments/gosellSDK-ReactNative.git",
+    "tag": "master"
+  },
+  "source_files": "ios/Classes/**/*",
+  "public_header_files": "ios/Classes/**/*.h",
+  "requires_arc": true,
+  "dependencies": {
+    "goSellSDK": [
+      "2.3.44"
+    ],
+    "React-Core": [
+
+    ]
+  },
+  "pod_target_xcconfig": {
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+  },
+  "user_target_xcconfig": {
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+  }
+}

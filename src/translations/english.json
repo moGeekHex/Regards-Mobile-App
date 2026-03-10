@@ -1,0 +1,33 @@
+{
+     "translation" : {
+          "homeTitlePopularWeek" : "Popular Gifts",
+          "homegift" : "Gifts for",
+          "homeTitlePupularEvents" : "Popular Events",
+          "shareTitlePopularEvent" : "Gifts by Event",
+          "shareTitleAllEvent" : "All Popular",
+          "searchTitlePopularSeller" : "Popular Partners",
+          "searchTitleAllSeller" : "All Partners",
+          "searchTitleAllCategories" : "All Categories",
+          "searchTitlePopularCategories" : "Popular Categories",
+          "productOverview" : "Gift Overview",
+          "productAdditionalDetails" : "Additional Details",
+          "productQTY" : "QTY",
+          "productPurchaseGift" : "PURCHASE GIFT",
+          "productQuantity" : "QTY",
+          "outOfStock" : "Not Available Now",
+          "cardModelContainueShopping" : "SIGN UP TO CONTINUE",
+          "cardModelContinueCheckout" : "CONTINUE TO CHECKOUT",
+          "cardModelContinueLogin" : "LOGIN",
+          "phoneNumber" : "Phone Number",
+          "enterCode" : "Enter the code",
+          "TermsAndConditions" : "Terms And Conditions",
+          "EditProfile" : "Edit Profile",
+          "WalletPrivate" : "Wallet",
+          "WalletCorprite" : "Wallet Corporate",
+          "itemOrder" : "History",
+          "DeleteAccount" : "Delete Account",
+          "SAVE":"SAVE",
+          "emailAddress" : "عنوان البريد الالكتروني"
+
+     }
+}

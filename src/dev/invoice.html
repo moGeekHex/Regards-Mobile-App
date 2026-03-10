@@ -1,0 +1,275 @@
+<html>
+    <head>
+      <style>
+        .root {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            width: 88%;
+            height: 95%;
+            margin-left: 3%;
+            margin-right: 3%;
+            padding-left: 3%;
+            padding-right: 3%;
+          
+        }
+        #block_container {
+            padding-top: 7.5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        #block_container > div {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        #imageContainer{
+            width: 8rem;
+            height: 8rem;
+        }
+
+        #imageContainer img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #titleInvoice{
+            font-weight: 700;
+            font-size: 12px;
+            padding-top: 1.5px;
+            padding-bottom: 1.5px;
+            margin: 0px;
+        }
+        .title{
+            font-size: 12px;
+            padding-top: 1.5px;
+            padding-bottom: 1.5px;
+            margin: 0px;
+        }
+
+        body {
+          font-family: 'Helvetica';
+          font-size: 12px;
+        }
+        header, footer {
+          height: 50px;
+          background-color: #fff;
+          color: #000;
+          display: flex;
+          justify-content: center;
+          padding: 0 20px;
+        }
+        .table {
+            display: flex;
+            flex-direction: row-reverse;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5%;
+            min-width: 25%;
+        }
+
+        .table td {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .table-details {
+            flex-direction: row-reverse;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5%;
+            
+        }
+
+        .table-details tr td{
+            text-align: center;
+        }
+
+        .table-details tr {
+            width: 100%;
+        }
+
+        th, td {
+          border: 1px solid #999;
+          padding-top: .2rem;
+          padding-bottom: .2rem;
+          text-align: right;
+          font-size: .7rem;
+        }
+        th {
+            font-weight: 600;
+            background-color: #777;
+            text-align: center;
+            color: #ebe7e7;
+        }
+        #line {
+            color: #dad6d6;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        .container{
+            padding-top: 2.5rem;
+        }
+        .container-cost {
+            display: flex;
+            justify-content: space-between;
+            width: 12rem;
+            flex-direction: row-reverse;
+            padding-bottom: .8rem;
+        }
+        .container-title {
+            text-align: right;
+
+        }
+
+        .container-price {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .cost-title {
+            text-align: left;
+            font-weight: 600;
+            font-size: .72rem;
+        }
+        .cost-data{
+            text-align: right;
+            font-weight: 600;
+        }
+        #container-qr{
+           padding-top: 1.2rem;
+        }
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    </head>
+    <body>
+        <div class="root">
+            <div id="block_container">
+                <div id="bloc1">
+                    <p id="titleInvoice">فاتوره ضريبة مبسطة</p>
+                    <p class="title">شركة تحياتي لتقنية المعلومات</p>
+                    <p class="title">Regards Information Technology Company</p>
+                    <p class="title">7144, Abi Bakr As Siddiq 4740, Riyadh 13335</p>
+                    <p class="title">الرقم الضريبي : 311320257400003</p>
+                </div>
+                <div id="imageContainer">
+                    <img src="../assets/images/Regards.png">
+                </div>
+            </div>
+            <hr id="line">
+            <table class="table">
+                <tr>
+                    <td>4/14/2023</td>
+                    <td>تاريخ الفاتورة</td>
+                </tr>
+                <tr>
+                    <td>4/14/2023</td>
+                    <td>رقم الفاتورة</td>
+                </tr>
+            </table>
+            <table class="table-details">
+                <tr>
+                    <th>
+                        <div>
+                            <span>Units subtotal Inc.VAT</span>
+                        </div>
+                        <div>
+                            <span>المجموع شامل ضريبة القيمة المضافة</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>Unit Price</span>
+                        </div>
+                        <div>
+                            <span>سعر الخدمة</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>Quantity</span>
+                        </div>
+                        <div>
+                            <span>الكمية</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            <span>Service Name</span>
+                        </div>
+                        <div>
+                            <span>اسم الخدمة</span>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <td>1.0</td>
+                    <td>0.88</td>
+                    <td>1</td>
+                    <td>teral service خدمة تجربية</td>
+                </tr>
+            </table>
+            <div class="container">
+                <div class="container-cost">
+                    <div class="container-title">
+                        <span class="cost-title">:الاجمالي قبل الضريبة</span>
+                    </div>
+                    <div class="container-price">
+                        <span style="padding-left: .25rem;">88</span><span class="cost-data">ر.س</span>
+                    </div>
+                </div>
+                <div class="container-cost">
+                    <div class="container-title">
+                        <span class="cost-title">:اجمالي الضريبة</span>
+                    </div>
+                    <div class="container-price">
+                        <span style="padding-left: .25rem;">88</span><span class="cost-data">ر.س</span>
+                    </div>
+                </div>
+                <div class="container-cost">
+                    <div class="container-title">
+                        <span class="cost-title">:المجموع</span>
+                    </div>
+                    <div class="container-price">
+                        <span style="padding-left: .25rem;">88</span><span class="cost-data">ر.س</span>
+                    </div>
+                </div>
+                <div class="container-cost">
+                    <div class="container-title">
+                        <span class="cost-title">:الخصم</span>
+                    </div>
+                    <div class="container-price">
+                        <span style="padding-left: .25rem;">88</span><span class="cost-data">ر.س</span>
+                    </div>
+                </div>
+                <div class="container-cost">
+                    <div class="container-title">
+                        <span class="cost-title">:المجموع</span>
+                    </div>
+                    <div class="container-price">
+                        <span style="padding-left: .25rem;">88</span><span class="cost-data">ر.س</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="container-qr">
+                <div id="qrcode"></div>
+            </div>
+        </div>
+        <script>
+
+            var qrcode = new QRCode("qrcode", {
+                text: "AQdSZWdhcmRzAg8zMTEzMjAyNTc0MDAwMDMDFDIwMjMtMDUtMTRUMTk6NTk6MDRaBAMxLjAFBDAuMTI=",
+                width : 130,
+                height : 130,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        </script>
+    </body>
+  </html>
