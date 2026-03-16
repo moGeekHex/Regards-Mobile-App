@@ -12,3 +12,21 @@ export const appEvents = async ({
         Alert.alert("events not capture")
     }
 }
+
+export const setUserId = async (id) => {
+    try {
+        await analytics().setUserId(id ? String(id) : null);
+        console.log("user id set done")
+    } catch (error) {
+        console.log("user id not set")
+    }
+}
+
+export const setUserProperty = async (name, value) => {
+    try {
+        await analytics().setUserProperty(name, value ? String(value) : null);
+        console.log("user property set done")
+    } catch (error) {
+        console.log("user property not set")
+    }
+}

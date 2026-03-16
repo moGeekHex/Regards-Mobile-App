@@ -6,12 +6,21 @@ import { font, width, height } from '../../../utils/Responsive';
 import Ionicons from '@react-native-vector-icons/ionicons'
 import Colors from '../../../constants/Colors';
 import { useTranslation } from "react-i18next";
+import { appEvents } from '../../../../events/appEvents';
 
 const Privacy = ({navigation}) => {
 
      const [langApp, setLang] = useState("en");
      const { t, i18n } = useTranslation();
      const lang = i18n.language === "english" ? "english" : "arabic"
+
+     const changeLang = (newLang) => {
+         i18n.changeLanguage(newLang);
+         try {
+             appEvents({ eventName: "language_changed", payload: { language: newLang } });
+         } catch(e) {}
+         navigation.navigate("Home");
+     }
 
      return (
           <View style={styles.root}>
@@ -21,7 +30,7 @@ const Privacy = ({navigation}) => {
                     title={ i18n.language === "english" ? "Language" : "اللغة" }
                />
                <ScrollView style={styles.screen} showsVerticalScrollIndicator={false}>
-                    <TouchableOpacity disabled={i18n.language === "arabic" ? true : false } style={{ width : '100%', justifyContent : 'center',  alignItems : 'center' }} onPress={() => { navigation.navigate("Home"), i18n.changeLanguage("arabic") }}>
+                    <TouchableOpacity disabled={i18n.language === "arabic" ? true : false } style={{ width : '100%', justifyContent : 'center',  alignItems : 'center' }} onPress={() => changeLang("arabic")}>
                          <Card style={styles.centerArabic(lang)} flexDirection={ i18n.language === "english" ? "row" : "row" }>
                               {
                                    i18n.language === "arabic"
@@ -32,12 +41,12 @@ const Privacy = ({navigation}) => {
                                    :
                                         <View style={styles.containerIcon}/>
                               }
-                              <TouchableOpacity disabled={i18n.language === "arabic" ? true : false } onPress={() => { i18n.changeLanguage("arabic"), navigation.navigate("Home") }}>
+                              <TouchableOpacity disabled={i18n.language === "arabic" ? true : false } onPress={() => changeLang("arabic") }>
                                    <Title style={styles.title} text={ i18n.language === "english" ? "العربية" : "العربية" } size="1.8"/>
                               </TouchableOpacity>
                          </Card>
                     </TouchableOpacity>
-                    <TouchableOpacity disabled={i18n.language === "english" ? true : false }  style={{ width : '100%', justifyContent : 'center', alignItems : 'center', paddingTop : font('5') }} onPress={() => {  navigation.navigate("Home") , i18n.changeLanguage("english") }}>
+                    <TouchableOpacity disabled={i18n.language === "english" ? true : false }  style={{ width : '100%', justifyContent : 'center', alignItems : 'center', paddingTop : font('5') }} onPress={() => changeLang("english") }>
                          <Card style={styles.centerEnglish(lang)} flexDirection={ i18n.language === "english" ? "row" : "row" }>
                               {
                                    i18n.language === "english"
@@ -48,7 +57,7 @@ const Privacy = ({navigation}) => {
                                    :
                                         <View style={styles.containerIcon}/>
                               }                       
-                              <TouchableOpacity onPress={() => { i18n.changeLanguage("english"),navigation.navigate("Home") }} disabled={i18n.language === "english" ? true : false }>
+                              <TouchableOpacity onPress={() => changeLang("english") } disabled={i18n.language === "english" ? true : false }>
                                    <Title style={styles.title} text="English" size="1.8"/>
                               </TouchableOpacity>
                          </Card>

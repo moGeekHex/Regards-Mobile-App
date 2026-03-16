@@ -8,10 +8,10 @@ import { useTranslation } from "react-i18next";
 import { useFocusEffect } from '@react-navigation/native';
 import AwesomeLoading from 'react-native-awesome-loading';
 //Redux
-import { useDispatch, useSelector } from 'react-redux';
 import { getPopularCategories, getAllCategories } from '../State/action/CategorySearchAction';
 import { getPopularEvents, getAllEvents } from '../State/action/EventSearchAction';
 import { getPopularSeller, getAllSeller } from '../State/action/SellerSearchAction';
+import { appEvents } from '../../../events/appEvents';
 
 const Search = ({ route ,navigation }) => {
 
@@ -98,10 +98,19 @@ const Search = ({ route ,navigation }) => {
                                 handleChange={(value) => { setSearchText(value), setOpenSearch(true) }}
                                 value={searchText}
                                 leftIconName={ lang === "english" ? "search" : "close" }   
-                                leftIconPress={ () => lang === "arabic" ? setSearchText(null) : searchText ? navigation.navigate('Result',{ searchText : searchText }) : null } 
+                                leftIconPress={ () => lang === "arabic" ? setSearchText(null) : searchText ? (() => {
+                                     try { appEvents({ eventName: "search", payload: { search_term: searchText } }); } catch(e) {}
+                                     navigation.navigate('Result',{ searchText : searchText });
+                                })() : null } 
                                 rightIconName={ lang === "arabic" ? "search" : "close" }    
-                                rightIconPress={ () => lang === "english" ? setSearchText(null) : searchText ? navigation.navigate('Result',{ searchText : searchText }) : null } 
-                                onSubmitEditing={() => navigation.navigate('Result',{ searchText : searchText })}
+                                rightIconPress={ () => lang === "english" ? setSearchText(null) : searchText ? (() => {
+                                     try { appEvents({ eventName: "search", payload: { search_term: searchText } }); } catch(e) {}
+                                     navigation.navigate('Result',{ searchText : searchText });
+                                })() : null } 
+                                onSubmitEditing={() => { 
+                                     try { appEvents({ eventName: "search", payload: { search_term: searchText } }); } catch(e) {}
+                                     navigation.navigate('Result',{ searchText : searchText }) 
+                                }}
                             />
                         </Card>
                         <ScrollView 

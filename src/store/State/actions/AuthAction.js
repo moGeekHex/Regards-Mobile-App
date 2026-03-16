@@ -2,10 +2,12 @@ import { ATTEMPTING_OTP,  SEND_OTP_SUCCESS, CHECK_OTP_SUCCESS, OTP_FAILED, LOGOU
 import axios from 'axios';
 import RoutesApi from '../../../constants/RoutesApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { appEvents } from '../../../events/appEvents';
 
 export const sendOtp = ( phone ) => {
     return async(dispatch) => {
         dispatch({type : ATTEMPTING_OTP});
+        try { appEvents({ eventName: "otp_requested" }); } catch (e) {}
 
         axios.post(`${RoutesApi}/otp`, {
             phone,
@@ -34,6 +36,8 @@ const handleSendOtp = async ( dispatch , resp, phone ) => {
 export const reSendOtp = ( phone ) => {
     return (dispatch) => {
         dispatch({type : ATTEMPTING_OTP});
+        try { appEvents({ eventName: "otp_resent" }); } catch (e) {}
+        
         axios.post(`${RoutesApi}/otp`, {
             phone,
         })
@@ -69,6 +73,12 @@ export const checkOtp = ( phone, code ) => {
  
      try {
          await AsyncStorage.setItem('user',user);
+         try { appEvents({ eventName: "login", payload: { method: "SMS" } }); } catch(e){}
+         // If a new account is registered, usually APIs return an indicator.
+         // Assuming userData.isNewUser or similar, fall back to checking if name is empty as a proxy if explicit flag missing.
+         if(userData?.user?.firstName === null || userData?.isNewUser) {
+             try { appEvents({ eventName: "sign_up", payload: { method: "SMS" } }); } catch(e){}
+         }
      } catch (e) {
  
      }
@@ -83,6 +93,7 @@ export const logoutAction = () => {
 
         try {
             await AsyncStorage.removeItem('user');
+            appEvents({ eventName: "logout" });
         } catch (e) {
     
         }

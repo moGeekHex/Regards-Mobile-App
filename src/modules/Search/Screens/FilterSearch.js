@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Head, Title, Card, ButtonApp } from '../../../components';
 import Colors from '../../../constants/Colors'
 import { useTranslation } from "react-i18next";
+import { appEvents } from '../../../events/appEvents';
 // import RangeSlider from '@jesster2k10/react-native-range-slider';
 
 const FilterSearch = ({ route, navigation }) => {
@@ -78,14 +79,25 @@ const FilterSearch = ({ route, navigation }) => {
                     <Card pushUp="58">
                          <ButtonApp 
                               title={ lang === "english" ? "SAVE" : "حفظ" }
-                              onPress={ () => navigation.navigate('SearchDetails',{
-                                   minPriceFilter : minPriceFilter,
-                                   maxPriceFilter : maxPriceFilter,
-                                   itemName : itemName,
-                                   sellerID : sellerID,
-                                   categoryID : categoryID,
-                                   eventID : eventID
-                              })}
+                               onPress={ () => {
+                                    try {
+                                         appEvents({
+                                              eventName: "filter_applied",
+                                              payload: {
+                                                   min_price: minPriceFilter,
+                                                   max_price: maxPriceFilter
+                                              }
+                                         });
+                                    } catch(e) {}
+                                    navigation.navigate('SearchDetails',{
+                                         minPriceFilter : minPriceFilter,
+                                         maxPriceFilter : maxPriceFilter,
+                                         itemName : itemName,
+                                         sellerID : sellerID,
+                                         categoryID : categoryID,
+                                         eventID : eventID
+                                    })
+                               }}
                          />
                     </Card>
                </View>
