@@ -11,6 +11,8 @@ import Colors from '../../../constants/Colors'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import analytics from '@react-native-firebase/analytics';
 import { appEvents } from "../../../events/appEvents"
+//Snapchat CAPI
+import { snapchatLoginEvent } from "../../../events/snapchatEvents";
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { sendOtp, reSendOtp, checkOtp } from '../../../store/State/actions/AuthAction';
@@ -118,6 +120,11 @@ const Login = ({ navigation }) => {
                })
           } catch (error) {
 
+          }
+          try{
+               snapchatLoginEvent()
+          } catch (error) {
+               console.log("Snapchat login error", error)
           }
      }  
 

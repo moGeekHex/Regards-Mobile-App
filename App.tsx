@@ -14,6 +14,9 @@ import { legacy_createStore as createStore , applyMiddleware } from 'redux';
 import store from './src/store';
 
 import { Adjust, AdjustConfig } from "react-native-adjust";
+
+//Snapchat CAPI
+import { snapchatInstallEvent, snapchatOpenAppEvent } from "./src/events/snapchatEvents";
 //Check Update
 import SpInAppUpdates, {
   NeedsUpdateResponse,
@@ -27,7 +30,11 @@ function App(): JSX.Element {
   useEffect(() => {
     requestUserPermission();
     NotificationListner();
-    subscribeTopic("all")
+    subscribeTopic("all");
+    
+    // Snapchat events
+    snapchatInstallEvent();
+    snapchatOpenAppEvent();
   },[]) 
 
   useEffect(() => {

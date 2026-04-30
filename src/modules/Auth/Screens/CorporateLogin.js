@@ -9,6 +9,8 @@ import AntDesign from '@react-native-vector-icons/ant-design'
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { loginCorporate } from "../State/actions/AuthCorporateAction"
+//Snapchat CAPI
+import { snapchatLoginEvent } from "../../../events/snapchatEvents";
 
 const CorporateLogin = ({ navigation }) => {
 
@@ -40,6 +42,11 @@ const CorporateLogin = ({ navigation }) => {
 
      _handleLogin = () => {
           dispatch(loginCorporate(email, password))
+          try{
+               snapchatLoginEvent()
+          } catch (error) {
+               console.log("Snapchat corporate login error", error)
+          }
      }
 
      return (
