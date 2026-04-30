@@ -14,6 +14,8 @@ import { addFavourite, getFavourites, deleteFavourite } from '../../Likes/State/
 import { getProfile } from '../../Profile/State/actions/ProfileAction';
 import BackgroundTimer from 'react-native-background-timer';
 import SimpleLineIcons from '@react-native-vector-icons/simple-line-icons'
+//Snapchat CAPI
+import { snapchatAddToCartEvent, snapchatStartCheckoutEvent } from '../../../events/snapchatEvents';
 
 const Product = ({ route, navigation }) => {
 
@@ -70,6 +72,22 @@ const Product = ({ route, navigation }) => {
             const user = await AsyncStorage.getItem('user')
             if(user)
             {
+                // Snapchat events
+                try{
+                    snapchatAddToCartEvent({
+                        price: product.price,
+                        currency: "SAR",
+                        numberOfItems: quantity
+                    });
+                    snapchatStartCheckoutEvent({
+                        price: product.price * quantity,
+                        currency: "SAR",
+                        numberOfItems: quantity
+                    });
+                } catch (error) {
+                    console.log("Snapchat cart/checkout error", error)
+                }
+
                 navigation.push('Payment',{ 
                     screen : "Payment",
                     params : {

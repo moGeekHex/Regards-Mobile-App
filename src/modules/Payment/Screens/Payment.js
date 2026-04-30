@@ -23,6 +23,9 @@ import  * as TamaraPayment  from 'react-native-tamara-sdk'
 //Events Firebase
 import { appEvents } from '../../../events/appEvents';
 
+//Snapchat CAPI
+import { snapchatPurchaseEvent } from '../../../events/snapchatEvents';
+
 //Adjust
 import { Adjust, AdjustEvent } from "react-native-adjust";
 
@@ -486,6 +489,13 @@ const Payment = ({ route, navigation }) => {
                          adjustEvent.setPurchaseToken(order?.[0]?.id)
                          Adjust.trackEvent(adjustEvent);
 
+                         snapchatPurchaseEvent({
+                              price: payCost,
+                              currency: "SAR",
+                              transactionId: charge_id,
+                              numberOfItems: order?.[0]?.quantity ?? 1
+                         });
+
                          navigation.navigate("Thanks",{ paymentDetails : order })
                     }
                     
@@ -556,6 +566,14 @@ const Payment = ({ route, navigation }) => {
                                                   adjustEvent.addPartnerParameter(order?.[0]?.vendorId)
                                                   adjustEvent.setPurchaseToken(order?.[0]?.id)
                                                   Adjust.trackEvent(adjustEvent);
+
+                                                  snapchatPurchaseEvent({
+                                                       price: order?.[0]?.cost,
+                                                       currency: "SAR",
+                                                       transactionId: String(order?.[0]?.id),
+                                                       numberOfItems: order?.[0]?.quantity ?? 1
+                                                  });
+
                                                   navigation.navigate("Thanks",{ paymentDetails : [order] })
                                              }}
                                              onFail={(callBackFail) => {
