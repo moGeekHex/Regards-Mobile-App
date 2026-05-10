@@ -21,6 +21,7 @@ import { sendOtp, checkOtp, reSendOtp, logoutAction } from '../../../store/State
 import { cleanUpLoginCorporate } from '../../Auth/State/actions/AuthCorporateAction';
 import { clearWallet, getMyWallet } from "../../../store/State/actions/MyWalletAction"
 import { useFocusEffect } from '@react-navigation/native';
+import { appEvents } from '../../../events/appEvents';
 
 const Profile = ({ navigation }) => {
 
@@ -81,6 +82,20 @@ const Profile = ({ navigation }) => {
             dispatch(getMyWallet())
         }
     },[]);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            try {
+                appEvents({ eventName: "mobile_menu_opened" });
+            } catch(e) {}
+
+            if(profile) {
+                try {
+                    appEvents({ eventName: "wallet_viewed" });
+                } catch(e) {}
+            }
+        }, [profile])
+    );
 
     const imagePicker = () => {
         ImagePicker.openPicker({

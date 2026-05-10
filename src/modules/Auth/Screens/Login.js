@@ -113,7 +113,7 @@ const Login = ({ navigation }) => {
                appEvents({
                     eventName : "login",
                     payload : {
-                         phone : phoneOtp
+                         method: "SMS"
                     }
                })
           } catch (error) {

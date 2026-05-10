@@ -12,6 +12,7 @@ import { getProductById } from '../State/actions/ProductAction';
 import { checkOtp, reSendOtp, sendOtp } from '../../../store/State/actions/AuthAction';
 import { addFavourite, getFavourites, deleteFavourite } from '../../Likes/State/action/FavouritesProductAction';
 import { getProfile } from '../../Profile/State/actions/ProfileAction';
+import { appEvents } from '../../../events/appEvents';
 import BackgroundTimer from 'react-native-background-timer';
 import SimpleLineIcons from '@react-native-vector-icons/simple-line-icons'
 
@@ -57,6 +58,22 @@ const Product = ({ route, navigation }) => {
 
     useEffect(() => {
         setProductDetails(product)
+        if(product && product.id) {
+             try {
+                  appEvents({
+                       eventName: "view_item",
+                       payload: {
+                            currency: "SAR",
+                            value: product.price,
+                            items: [{
+                                 item_id: product.id,
+                                 item_name: product.nameEn || product.nameAr || "unknown",
+                                 price: product.price
+                            }]
+                       }
+                  });
+             } catch(e) {}
+        }
     },[product])   
 
 
@@ -70,6 +87,22 @@ const Product = ({ route, navigation }) => {
             const user = await AsyncStorage.getItem('user')
             if(user)
             {
+                try {
+                     appEvents({
+                          eventName: "begin_checkout",
+                          payload: {
+                               currency: "SAR",
+                               value: product.price * quantity,
+                               items: [{
+                                    item_id: product.id,
+                                    item_name: product.nameEn || product.nameAr || "unknown",
+                                    price: product.price,
+                                    quantity: quantity
+                               }]
+                          }
+                     });
+                } catch(e) {}
+
                 navigation.push('Payment',{ 
                     screen : "Payment",
                     params : {
@@ -95,6 +128,17 @@ const Product = ({ route, navigation }) => {
             favourites.pop()
             setMyFavouritesState(favourites)
             await dispatch(deleteFavourite(id))
+
+            try {
+                 appEvents({
+                      eventName: "remove_from_wishlist",
+                      payload: {
+                           currency: "SAR",
+                           value: product.price,
+                           items: [{ item_id: product.id, item_name: product.nameEn || product.nameAr || "unknown", price: product.price }]
+                      }
+                 });
+            } catch(e) {}
         }else if(!like && profile) { 
             productDetails.likes++
             const myFavourites = [];
@@ -102,6 +146,17 @@ const Product = ({ route, navigation }) => {
             setMyFavouritesState(myFavourites)
 
             await dispatch(addFavourite(id))
+
+            try {
+                 appEvents({
+                      eventName: "add_to_wishlist",
+                      payload: {
+                           currency: "SAR",
+                           value: product.price,
+                           items: [{ item_id: product.id, item_name: product.nameEn || product.nameAr || "unknown", price: product.price }]
+                      }
+                 });
+            } catch(e) {}
         }else{
             setModalVisible(true)
         }

@@ -464,15 +464,24 @@ const Payment = ({ route, navigation }) => {
                     if(charge_id)
                     {
                          try{
+                              const items = order ? order.map((item, index) => ({
+                                   item_id: item.productId,
+                                   item_name: item.productName || 'unknown',
+                                   price: item.price,
+                                   quantity: item.quantity,
+                                   index: index
+                              })) : [];
+
                               appEvents({
                                    eventName : "purchase",
                                    payload : {
                                         currency : "SAR",
-                                        value : order?.[0].cost,
+                                        value : order?.[0]?.cost,
                                         transaction_id : charge_id,
-                                        coupon : codeDiscound ? codeDiscound : null,
+                                        coupon : codeDiscound ? codeDiscound : undefined,
                                         shipping : 0,
-                                        tax : 15
+                                        tax : 15,
+                                        items: items
                                    }
                               })
                          } catch (error) {
@@ -550,6 +559,30 @@ const Payment = ({ route, navigation }) => {
                                              cancelURL={"https://api.regards.sa/tamara/closed"}
                                              onSuccess={(callBackSuccess) => {
                                                   setTamaraCheckOutStatus(false)
+
+                                                  try {
+                                                       const items = order ? order.map((item, index) => ({
+                                                            item_id: item.productId,
+                                                            item_name: item.productName || 'unknown',
+                                                            price: item.price,
+                                                            quantity: item.quantity,
+                                                            index: index
+                                                       })) : [];
+                         
+                                                       appEvents({
+                                                            eventName : "purchase",
+                                                            payload : {
+                                                                 currency : "SAR",
+                                                                 value : order?.[0]?.cost,
+                                                                 transaction_id : order?.[0]?.id || "tamara_txn",
+                                                                 coupon : codeDiscound ? codeDiscound : undefined,
+                                                                 shipping : 0,
+                                                                 tax : 15,
+                                                                 items: items
+                                                            }
+                                                       })
+                                                  } catch (error) {}
+
                                                   var adjustEvent = new AdjustEvent("gr3gac");
                                                   adjustEvent.setRevenue(order?.[0]?.cost,"SAR")
                                                   adjustEvent.setProductId(order?.[0]?.productId)

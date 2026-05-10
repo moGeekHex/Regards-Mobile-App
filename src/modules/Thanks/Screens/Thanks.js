@@ -9,6 +9,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanUpPayment } from "../../Payment/State/action/PayAction"
 import Colors from '../../../constants/Colors'
+import { appEvents } from '../../../events/appEvents';
 const Thanks = ({ route, navigation }) => {
 
      const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Thanks = ({ route, navigation }) => {
      const share = async (customOptions = options) => {
           try {
             await Share.share(customOptions);
+            try { appEvents({ eventName: "share", payload: { method: "native", content_type: "link" } }); } catch(e){}
           } catch (err) {
             console.log(err);
           }

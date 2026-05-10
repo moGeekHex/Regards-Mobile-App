@@ -75,6 +75,12 @@ export default () => {
 
         if(user)
         {        
+          if(user.user && user.user.id) {
+             try {
+                const { setUserId } = require('../events/appEvents');
+                setUserId(user.user.id);
+             } catch(e){}
+          }
           if(user.user.fcm !== fcmtoken)
           {
             var config = {

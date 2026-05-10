@@ -12,6 +12,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrder } from '../State/actions/OrderAction';
+import { appEvents } from '../../../events/appEvents';
 
 const History = ({navigation}) => {
 
@@ -103,6 +104,9 @@ const History = ({navigation}) => {
 
     useEffect(() => {
         init()
+        try {
+            appEvents({ eventName: "order_history_viewed" });
+        } catch(e) {}
     },[])
 
     const copyToClipboard = () => {

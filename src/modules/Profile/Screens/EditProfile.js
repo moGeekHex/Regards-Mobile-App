@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from '../State/actions/ProfileImageAction';
 import { getProfile, addProfile } from '../State/actions/ProfileAction';
 import { useFocusEffect } from '@react-navigation/native';
+import { appEvents } from '../../../events/appEvents';
 
 const EditProfile = ({navigation}) => {
 
@@ -51,6 +52,7 @@ const EditProfile = ({navigation}) => {
      useFocusEffect(
           React.useCallback(() => {
                _handleGetUser()
+               try { appEvents({ eventName: "edit_profile_started" }); } catch(e) {}
           }, [])
      );
 

@@ -17,6 +17,7 @@ import { getProductsBySeller } from '../../Search/State/action/ProductBySellerAc
 import { checkOtp, reSendOtp, sendOtp } from '../../../store/State/actions/AuthAction';
 import { addFavourite, getFavourites, deleteFavourite } from '../../Likes/State/action/FavouritesProductAction';
 import { getProfile } from '../../Profile/State/actions/ProfileAction';
+import { appEvents } from '../../../events/appEvents';
 //Adjust
 
 const ProviderScreen = ({ route, navigation }) => {
@@ -134,6 +135,7 @@ const ProviderScreen = ({ route, navigation }) => {
           if(route.params?.sellerID)
           {
                dispatch(getProductsBySeller(route.params?.sellerID, page ));
+               try { appEvents({ eventName: "view_item_list", payload: { item_list_id: String(route.params?.sellerID), item_list_name: String(itemName) } }); } catch(e){}
           }
      },[])
 
