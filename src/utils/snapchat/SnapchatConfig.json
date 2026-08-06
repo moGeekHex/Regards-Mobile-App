@@ -2,6 +2,8 @@
   "pixelId": "4d150784-0a9f-4f2f-8f8f-e068e27f7396",
   "accessToken": "eyJhbGciOiJIUzI1NiIsImtpZCI6IkNhbnZhc1MyU0hNQUNQcm9kIiwidHlwIjoiSldUIn0.eyJhdWQiOiJjYW52YXMtY2FudmFzYXBpIiwiaXNzIjoiY2FudmFzLXMyc3Rva2VuIiwibmJmIjoxNzc3Mzg4NDMwLCJzdWIiOiI4OWQ2MWZjMS0zZDJlLTQxNWEtODQzMS0yYTIyZWY1YjU5ODR-UFJPRFVDVElPTn45N2RmMjFlOC1hNDYyLTQ5OTAtYmI2Yi00ZGNkMjg0NDMwMDQifQ.MYsdSoHfP7xlV4hiT02I14NnKlbk-cpqUarwEYQDiM4",
   "appId": "com.regards",
+  "appVersion": "1.0",
+  "iosAppStoreId": "",
   "eventSourceUrl": "https://regards.app",
-  "snapAppId": ""
+  "snapAppId": "a9172cc2-e179-44ee-a8de-73dbf6270eb8"
 }

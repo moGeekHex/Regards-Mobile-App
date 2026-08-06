@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import SnapchatConfig from '../utils/snapchat/SnapchatConfig.json';
 
 // CAPI v2 event names → v3 event_name
@@ -78,26 +79,35 @@ const snapchatEvent = async (eventType, payload = {}) => {
   };
 
   if (useAppEndpoint) {
+    const isIos = Platform.OS === 'ios';
+    const packageName = SnapchatConfig.appId || 'com.regards';
+    // iOS app_id must be numeric App Store ID when available; Android uses package name
+    const appId = isIos
+      ? SnapchatConfig.iosAppStoreId || packageName
+      : packageName;
+    const osVersion = String(Platform.Version ?? (isIos ? '17.0' : '14'));
+
     event.app_data = {
       advertiser_tracking_enabled: 1,
-      app_id: SnapchatConfig.appId || 'com.regards',
+      app_id: appId,
+      // Index 0 must be i2 (iOS) or a2 (Android); index 4 OS version is required
       extinfo: [
-        'i2',
-        SnapchatConfig.appId || 'com.regards',
-        '',
-        '',
-        '',
-        '',
+        isIos ? 'i2' : 'a2',
+        packageName,
+        SnapchatConfig.appVersion || '1.0',
+        SnapchatConfig.appVersion || '1.0',
+        osVersion,
+        isIos ? 'iPhone' : 'Android',
         'en_US',
         '',
         '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
+        '390',
+        '844',
+        '3',
+        '4',
+        '64',
+        '32',
+        'Asia/Riyadh',
       ],
     };
   }

@@ -86,7 +86,25 @@ if "${USE_APP}" == "1":
   event["app_data"] = {
     "advertiser_tracking_enabled": 1,
     "app_id": "${APP_ID}",
-    "extinfo": ["a2", "${APP_ID}", "", "", "", "", "en_US", "", "", "", "", "", "", "", "", ""],
+    # extinfo[0]=a2|i2, extinfo[4]=OS version (required)
+    "extinfo": [
+      "a2",
+      "${APP_ID}",
+      "1.0",
+      "1.0",
+      "14",
+      "Android",
+      "en_US",
+      "",
+      "",
+      "1080",
+      "1920",
+      "2.00",
+      "8",
+      "128",
+      "64",
+      "Asia/Riyadh",
+    ],
   }
 print(json.dumps({"data": [event]}))
 PY
