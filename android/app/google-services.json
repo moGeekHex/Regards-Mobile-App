@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "283895874170",
+    "project_id": "regards-971d6",
+    "storage_bucket": "regards-971d6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283895874170:android:3916d60de41f2d8030f1c3",
+        "android_client_info": {
+          "package_name": "com.regards"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHgUYOIi-oDc0P5Xd0MTbLHVQ2FhtZR9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

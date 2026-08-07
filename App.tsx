@@ -21,10 +21,14 @@ import SpInAppUpdates, {
   StartUpdateOptions,
 } from 'sp-react-native-in-app-updates';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { enableAnalyticsCollection } from './src/events/appEvents';
+// Mobile analytics is centralized on Firebase regards-971d6 → GA4 "Regards iOS and Android".
+// Web (G-P86C8EVWMN) is intentionally separate and must not be configured here.
 
 function App(): JSX.Element {
 
   useEffect(() => {
+    enableAnalyticsCollection();
     requestUserPermission();
     NotificationListner();
     subscribeTopic("all")

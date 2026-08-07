@@ -9,7 +9,6 @@ import BackgroundTimer from 'react-native-background-timer';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Colors from '../../../constants/Colors'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import analytics from '@react-native-firebase/analytics';
 import { appEvents } from "../../../events/appEvents"
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
