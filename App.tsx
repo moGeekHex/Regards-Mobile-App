@@ -21,10 +21,12 @@ import SpInAppUpdates, {
   StartUpdateOptions,
 } from 'sp-react-native-in-app-updates';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { enableAnalyticsCollection } from './src/events/appEvents';
 
 function App(): JSX.Element {
 
   useEffect(() => {
+    enableAnalyticsCollection();
     requestUserPermission();
     NotificationListner();
     subscribeTopic("all")

@@ -478,7 +478,7 @@ const Payment = ({ route, navigation }) => {
                                         currency : "SAR",
                                         value : order?.[0]?.cost,
                                         transaction_id : charge_id,
-                                        coupon : codeDiscound ? codeDiscound : undefined,
+                                        ...(codeDiscound ? { coupon : codeDiscound } : {}),
                                         shipping : 0,
                                         tax : 15,
                                         items: items
@@ -575,7 +575,7 @@ const Payment = ({ route, navigation }) => {
                                                                  currency : "SAR",
                                                                  value : order?.[0]?.cost,
                                                                  transaction_id : order?.[0]?.id || "tamara_txn",
-                                                                 coupon : codeDiscound ? codeDiscound : undefined,
+                                                                 ...(codeDiscound ? { coupon : codeDiscound } : {}),
                                                                  shipping : 0,
                                                                  tax : 15,
                                                                  items: items
