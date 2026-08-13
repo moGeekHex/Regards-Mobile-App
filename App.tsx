@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { AppState } from 'react-native';
 import type {PropsWithChildren} from 'react';
 import Navigation from './src/routes/Navigation';
 import { requestUserPermission, NotificationListner, subscribeTopic } from "./src/utils/PushNotification"  
@@ -14,6 +15,8 @@ import { legacy_createStore as createStore , applyMiddleware } from 'redux';
 import store from './src/store';
 
 import { Adjust, AdjustConfig } from "react-native-adjust";
+//Snapchat CAPI
+import { snapchatInstallEvent, snapchatOpenAppEvent } from "./src/events/snapchatEvents";
 //Check Update
 import SpInAppUpdates, {
   NeedsUpdateResponse,
@@ -28,7 +31,26 @@ function App(): JSX.Element {
     requestUserPermission();
     NotificationListner();
     subscribeTopic("all")
-  },[]) 
+
+    // Snapchat CAPI. APP_INSTALL de-duplicates itself against AsyncStorage, so
+    // it reports once per device install and APP_OPEN reports every launch.
+    snapchatInstallEvent();
+    snapchatOpenAppEvent();
+  },[])
+
+  // A cold start is not the only session. Report APP_OPEN when the app returns
+  // to the foreground too, throttled so a quick task-switch is not a session.
+  const lastOpenReport = useRef(Date.now());
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextState => {
+      if (nextState !== 'active') return;
+      if (Date.now() - lastOpenReport.current < 30 * 60 * 1000) return;
+      lastOpenReport.current = Date.now();
+      snapchatOpenAppEvent();
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {

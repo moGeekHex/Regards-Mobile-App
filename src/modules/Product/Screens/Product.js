@@ -15,6 +15,8 @@ import { getProfile } from '../../Profile/State/actions/ProfileAction';
 import { appEvents } from '../../../events/appEvents';
 import BackgroundTimer from 'react-native-background-timer';
 import SimpleLineIcons from '@react-native-vector-icons/simple-line-icons'
+//Snapchat CAPI
+import { snapchatViewContentEvent, snapchatStartCheckoutEvent } from '../../../events/snapchatEvents';
 
 const Product = ({ route, navigation }) => {
 
@@ -73,8 +75,14 @@ const Product = ({ route, navigation }) => {
                        }
                   });
              } catch(e) {}
+
+             snapchatViewContentEvent({
+                  itemId: product.id,
+                  price: product.price,
+                  currency: "SAR"
+             });
         }
-    },[product])   
+    },[product])
 
 
     const updateSelectedDetails = selected => {
@@ -102,6 +110,16 @@ const Product = ({ route, navigation }) => {
                           }
                      });
                 } catch(e) {}
+
+                // Snapchat START_CHECKOUT. No ADD_CART here: the app goes
+                // straight from product to payment, so emitting both on the
+                // same tap would collapse the funnel into one instant.
+                snapchatStartCheckoutEvent({
+                     itemId: product.id,
+                     price: product.price * quantity,
+                     currency: "SAR",
+                     numberOfItems: quantity
+                });
 
                 navigation.push('Payment',{ 
                     screen : "Payment",

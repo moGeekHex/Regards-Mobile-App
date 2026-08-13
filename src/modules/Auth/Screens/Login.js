@@ -84,6 +84,9 @@ const Login = ({ navigation }) => {
           {
                // var adjustEvent = new AdjustEvent("eew8tu");
                // Adjust.trackEvent(adjustEvent);
+               // Snapchat LOGIN / SIGN_UP fire in checkOtp's success handler,
+               // which is the only place that knows the OTP validated and
+               // whether the account is new.
                navigation.navigate("App")
                setPhoneOtp("")
                setCodeOtp("")
