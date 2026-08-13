@@ -120,6 +120,12 @@ export const snapchatSignUpEvent = (payload = {}) => send("SIGN_UP", payload);
 
 export const snapchatLoginEvent = (payload = {}) => send("LOGIN", payload);
 
+const toFiniteNumber = (value) => {
+    if (value === undefined || value === null || value === "") return undefined;
+    const n = typeof value === "number" ? value : Number(value);
+    return Number.isFinite(n) ? n : undefined;
+};
+
 export const snapchatViewContentEvent = ({
     itemId,
     price,
@@ -129,7 +135,7 @@ export const snapchatViewContentEvent = ({
     send("VIEW_CONTENT", {
         itemId: itemId !== undefined && itemId !== null ? String(itemId) : undefined,
         currency,
-        value: price,
+        value: toFiniteNumber(price),
         ...rest,
     });
 
@@ -147,8 +153,8 @@ export const snapchatAddToCartEvent = ({
 } = {}) =>
     send("ADD_CART", {
         currency,
-        value: price,
-        numItems: numberOfItems,
+        value: toFiniteNumber(price),
+        numItems: toFiniteNumber(numberOfItems) ?? 1,
         itemId: itemId !== undefined && itemId !== null ? String(itemId) : undefined,
         ...rest,
     });
@@ -162,8 +168,8 @@ export const snapchatStartCheckoutEvent = ({
 } = {}) =>
     send("START_CHECKOUT", {
         currency,
-        value: price,
-        numItems: numberOfItems,
+        value: toFiniteNumber(price),
+        numItems: toFiniteNumber(numberOfItems) ?? 1,
         itemId: itemId !== undefined && itemId !== null ? String(itemId) : undefined,
         ...rest,
     });
@@ -177,12 +183,12 @@ export const snapchatPurchaseEvent = ({
 } = {}) =>
     send("PURCHASE", {
         currency,
-        value: price,
+        value: toFiniteNumber(price),
         // Doubles as Snap's event_id, so a retried callback is deduplicated.
         orderId:
             transactionId !== undefined && transactionId !== null
                 ? String(transactionId)
                 : undefined,
-        numItems: numberOfItems,
+        numItems: toFiniteNumber(numberOfItems) ?? 1,
         ...rest,
     });
