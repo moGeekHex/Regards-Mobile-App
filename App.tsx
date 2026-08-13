@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { AppState } from 'react-native';
 import type {PropsWithChildren} from 'react';
 import Navigation from './src/routes/Navigation';
 import { requestUserPermission, NotificationListner, subscribeTopic } from "./src/utils/PushNotification"  
@@ -36,6 +37,20 @@ function App(): JSX.Element {
     snapchatInstallEvent();
     snapchatOpenAppEvent();
   },[])
+
+  // A cold start is not the only session. Report APP_OPEN when the app returns
+  // to the foreground too, throttled so a quick task-switch is not a session.
+  const lastOpenReport = useRef(Date.now());
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextState => {
+      if (nextState !== 'active') return;
+      if (Date.now() - lastOpenReport.current < 30 * 60 * 1000) return;
+      lastOpenReport.current = Date.now();
+      snapchatOpenAppEvent();
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {
