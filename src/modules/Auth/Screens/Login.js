@@ -11,6 +11,8 @@ import Colors from '../../../constants/Colors'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import analytics from '@react-native-firebase/analytics';
 import { appEvents } from "../../../events/appEvents"
+//Snapchat CAPI
+import { snapchatLoginEvent } from "../../../events/snapchatEvents"
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { sendOtp, reSendOtp, checkOtp } from '../../../store/State/actions/AuthAction';
@@ -84,6 +86,12 @@ const Login = ({ navigation }) => {
           {
                // var adjustEvent = new AdjustEvent("eew8tu");
                // Adjust.trackEvent(adjustEvent);
+
+               // Snapchat LOGIN, fired on a confirmed OTP rather than on the
+               // tap, and carrying the phone so Snap has a match key. The
+               // number is hashed server-side and never sent to Snap in clear.
+               snapchatLoginEvent({ phone: phoneOtp })
+
                navigation.navigate("App")
                setPhoneOtp("")
                setCodeOtp("")

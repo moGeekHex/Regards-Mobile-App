@@ -14,6 +14,8 @@ import { legacy_createStore as createStore , applyMiddleware } from 'redux';
 import store from './src/store';
 
 import { Adjust, AdjustConfig } from "react-native-adjust";
+//Snapchat CAPI
+import { snapchatInstallEvent, snapchatOpenAppEvent } from "./src/events/snapchatEvents";
 //Check Update
 import SpInAppUpdates, {
   NeedsUpdateResponse,
@@ -28,7 +30,12 @@ function App(): JSX.Element {
     requestUserPermission();
     NotificationListner();
     subscribeTopic("all")
-  },[]) 
+
+    // Snapchat CAPI. APP_INSTALL de-duplicates itself against AsyncStorage, so
+    // it reports once per device install and APP_OPEN reports every launch.
+    snapchatInstallEvent();
+    snapchatOpenAppEvent();
+  },[])
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async remoteMessage => {

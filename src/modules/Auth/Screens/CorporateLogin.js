@@ -9,6 +9,8 @@ import AntDesign from '@react-native-vector-icons/ant-design'
 //Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { loginCorporate } from "../State/actions/AuthCorporateAction"
+//Snapchat CAPI
+import { snapchatLoginEvent } from "../../../events/snapchatEvents"
 
 const CorporateLogin = ({ navigation }) => {
 
@@ -20,7 +22,17 @@ const CorporateLogin = ({ navigation }) => {
      const [password, setPassword] = useState(false);
 
      const dispatch = useDispatch();
-     const { errorLoginCorporate } = useSelector(state=>state.authCorporate)     
+     const { errorLoginCorporate, loginCorporate : loginCorporateSuccess } = useSelector(state=>state.authCorporate)
+
+     // Snapchat LOGIN only once the backend accepted the credentials. Firing it
+     // next to the dispatch reported failed logins as conversions.
+     useEffect(() => {
+          if(loginCorporateSuccess)
+          {
+               // `email` starts as `false`, so only pass it once it is a string.
+               snapchatLoginEvent({ email: typeof email === "string" ? email : undefined })
+          }
+     },[loginCorporateSuccess])
 
      const secondTextInput = useRef();
 
