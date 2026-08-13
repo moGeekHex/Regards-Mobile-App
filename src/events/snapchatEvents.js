@@ -36,7 +36,9 @@ const deviceContext = () => {
 
     return {
         os: Platform.OS === "ios" ? "ios" : "android",
-        osVersion: String(Platform.Version ?? ""),
+        // Platform.Version is the API level on Android (34), not the release
+        // ("14"). Snap wants the release string.
+        osVersion: DeviceInfo.getSystemVersion(),
         appVersion: DeviceInfo.getVersion(),
         deviceModel: DeviceInfo.getModel(),
         locale: locale.replace("-", "_"),
@@ -85,11 +87,21 @@ const send = async (eventName, payload = {}) => {
 /**
  * APP_INSTALL means first launch on this device, not every launch. Reporting it
  * on each cold start inflates the install count and poisons Snap's optimisation.
+ *
+ * Devices that already had the app before this build carry no flag, so they
+ * would all report a fresh install on first upgrade. A stored user proves the
+ * install predates this build: seed the flag and stay silent.
  */
 export const snapchatInstallEvent = async (payload = {}) => {
     try {
         const alreadyReported = await AsyncStorage.getItem(INSTALL_FLAG_KEY);
         if (alreadyReported) return false;
+
+        const existingUser = await AsyncStorage.getItem("user");
+        if (existingUser) {
+            await AsyncStorage.setItem(INSTALL_FLAG_KEY, "pre-existing");
+            return false;
+        }
 
         const delivered = await send("APP_INSTALL", payload);
         if (delivered) {
